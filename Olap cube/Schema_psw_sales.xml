@@ -1,0 +1,102 @@
+<Schema name="Sales_psw_datawahouse">
+  <Dimension type="TimeDimension" visible="true" highCardinality="false" name="date">
+    <Hierarchy visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="date_dim" schema="public">
+      </Table>
+      <Level name="Day" visible="true" table="date_dim" column="day" nameColumn="day" type="String" internalType="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+      </Level>
+      <Level name="Month" visible="true" table="date_dim" column="month" nameColumn="month" type="String" internalType="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+      </Level>
+      <Level name="Year" visible="true" table="date_dim" column="year" nameColumn="year" type="String" internalType="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+      </Level>
+      <Level name="Week" visible="true" table="date_dim" column="week_number" nameColumn="week_number" type="String" internalType="String" uniqueMembers="false" levelType="TimeWeeks" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Ship">
+    <Hierarchy visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="ship_dim" schema="public">
+      </Table>
+      <Level name="Mode" visible="true" table="ship_dim" column="ship_mode" nameColumn="ship_mode" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="All_mode" visible="true" table="ship_dim" column="all_mode" nameColumn="all_mode" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Product">
+    <Hierarchy visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="product_dim" schema="public">
+      </Table>
+      <Level name="Product name" visible="true" table="product_dim" column="product_name" nameColumn="product_name" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Sub Category" visible="true" table="product_dim" column="sub_category" nameColumn="sub_category" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Category" visible="true" table="product_dim" column="category" nameColumn="category" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" highCardinality="false" name="Customer">
+    <Hierarchy name="Customer" visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="customer_dim" schema="public">
+      </Table>
+      <Level name="Customer Name" visible="true" table="customer_dim" column="customer_name" nameColumn="customer_name" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Age" visible="true" table="customer_dim" column="age" nameColumn="age" type="Integer" internalType="int" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Segment" visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="customer_dim" schema="public">
+      </Table>
+      <Level name="Segment" visible="true" table="customer_dim" column="segment" nameColumn="segment" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="City" visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="customer_dim" schema="public">
+      </Table>
+      <Level name="City name" visible="true" column="customer_name" nameColumn="city" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Code Postal" visible="true" table="customer_dim" column="postal_code" nameColumn="postal_code" type="String" internalType="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="State" visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="customer_dim" schema="public">
+      </Table>
+      <Level name="State Name" visible="true" table="customer_dim" column="state_name" nameColumn="state_name" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Capital" visible="true" table="customer_dim" column="capital" nameColumn="capital" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Longitude" visible="true" table="customer_dim" column="longitude" nameColumn="longitude" type="Numeric" internalType="long" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Latitude" visible="true" table="customer_dim" column="latitude" nameColumn="latitude" type="Numeric" internalType="long" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Region" visible="true" table="customer_dim" column="region" nameColumn="region" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+    <Hierarchy name="Country" visible="true" hasAll="true" primaryKey="surr_id">
+      <Table name="customer_dim" schema="public">
+      </Table>
+      <Level name="Country name" visible="true" table="customer_dim" column="country" nameColumn="country" type="String" internalType="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Sales_psw" visible="true" cache="true" enabled="true">
+    <Table name="sales_fact" schema="public">
+    </Table>
+    <DimensionUsage source="date" name="Date" visible="true" foreignKey="s_date_id" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Customer" name="Customer" visible="true" foreignKey="s_cust_id" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Product" name="Product" visible="true" foreignKey="s_prod_id" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Ship" name="Ship" visible="true" foreignKey="s_ship_id" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="Sales" column="sales" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="Profit" column="profit" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="QTE" column="quantity" datatype="Numeric" aggregator="sum" visible="true">
+    </Measure>
+    <CalculatedMember name="CA" formula="[Measures].[Sales] * [Measures].[QTE]" dimension="Measures" visible="true">
+    </CalculatedMember>
+  </Cube>
+</Schema>
