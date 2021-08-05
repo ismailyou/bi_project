@@ -1,4 +1,4 @@
-# Salse Datawarehouse
+# Salse Data Warehouse
 business intelligence project using spoon pentaho and bi server
 ## Supervised by
     **Pr. Ziyati Houssaine**
@@ -6,5 +6,6 @@ business intelligence project using spoon pentaho and bi server
 ## Team 
     **ISMAIL JADID**
     **ZAKARIA LARHCHIM**
+MASTER  IDDLO-TA
 
 
